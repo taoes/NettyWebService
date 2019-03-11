@@ -1,4 +1,4 @@
-package com.redant.core.converter;
+package com.seven.web.core.utils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -41,8 +41,8 @@ public class PrimitiveTypeUtil {
 	private PrimitiveTypeUtil() {}
 
 	/** 基本类型  **/
-	private static final Class<?>[] PRI_TYPE = { 
-			String.class, 
+	private static final Class<?>[] PRI_TYPE = {
+			String.class,
 			boolean.class,
 			byte.class, 
 			short.class, 
@@ -51,20 +51,20 @@ public class PrimitiveTypeUtil {
 			float.class,
 			double.class, 
 			char.class, 
-			Boolean.class, 
-			Byte.class, 
+			Boolean.class,
+			Byte.class,
 			Short.class,
-			Integer.class, 
-			Long.class, 
-			Float.class, 
+			Integer.class,
+			Long.class,
+			Float.class,
 			Double.class,
-			Character.class, 
-			BigInteger.class, 
-			BigDecimal.class 
+			Character.class,
+			BigInteger.class,
+			BigDecimal.class
 	};
 
 	/** 基本数组类型  **/
-	private static final Class<?>[] PRI_ARRAY_TYPE = { 
+	private static final Class<?>[] PRI_ARRAY_TYPE = {
 			String[].class,
 			boolean[].class, 
 			byte[].class, 
@@ -74,16 +74,16 @@ public class PrimitiveTypeUtil {
 			float[].class, 
 			double[].class, 
 			char[].class,
-			Boolean[].class, 
-			Byte[].class, 
-			Short[].class, 
+			Boolean[].class,
+			Byte[].class,
+			Short[].class,
 			Integer[].class,
-			Long[].class, 
-			Float[].class, 
-			Double[].class, 
+			Long[].class,
+			Float[].class,
+			Double[].class,
 			Character[].class,
-			BigInteger[].class, 
-			BigDecimal[].class 
+			BigInteger[].class,
+			BigDecimal[].class
 	};
 	
 	/**

@@ -7,10 +7,10 @@ import com.seven.web.core.Application;
  * @version 0.0.1
  * @data 2019-03-09 19:09
  */
-
 public class Main {
 
   public static void main(String[] args) throws NoSuchMethodException {
     Application.init();
+    Application.start(args);
   }
 }

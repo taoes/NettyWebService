@@ -8,6 +8,7 @@ import com.seven.web.core.annotation.Mapping;
 import com.seven.web.core.annotation.Order;
 import com.seven.web.core.common.constant.CommonConstant;
 import com.seven.web.core.common.enums.RenderType;
+import com.seven.web.core.compose.context.ControllerContext;
 import io.netty.handler.codec.http.HttpMethod;
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -23,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Order(value = 1)
 @Slf4j
-public class DefaultControllerContext implements InitFunction {
+public class DefaultControllerContext implements InitFunction, ControllerContext {
 
   private static DefaultBeanContext beanContext;
 

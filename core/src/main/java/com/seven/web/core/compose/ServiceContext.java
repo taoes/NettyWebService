@@ -1,12 +1,10 @@
-package com.seven.web.core.compose.context;
+package com.seven.web.core.compose;
 
-import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.cookie.Cookie;
 import io.netty.util.concurrent.FastThreadLocal;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
