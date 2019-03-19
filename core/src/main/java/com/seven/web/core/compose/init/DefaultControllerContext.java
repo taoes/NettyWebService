@@ -8,7 +8,9 @@ import com.seven.web.core.annotation.Mapping;
 import com.seven.web.core.annotation.Order;
 import com.seven.web.core.common.constant.CommonConstant;
 import com.seven.web.core.common.enums.RenderType;
+import com.seven.web.core.compose.ControllerProxyBean;
 import com.seven.web.core.compose.context.ControllerContext;
+import com.seven.web.core.compose.context.ControllerProxyContext;
 import io.netty.handler.codec.http.HttpMethod;
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -30,6 +32,8 @@ public class DefaultControllerContext implements InitFunction, ControllerContext
 
   private static volatile DefaultControllerContext controllerContext;
 
+  private static ControllerProxyContext controllerProxyContext;
+
   public final String SPACING_FLAG = "/";
 
   @Override
@@ -38,6 +42,7 @@ public class DefaultControllerContext implements InitFunction, ControllerContext
     synchronized (DefaultControllerContext.class) {
       beanContext = DefaultBeanContext.getInstance();
       controllerContext = DefaultControllerContext.getInstance();
+      controllerProxyContext = ControllerProxyContextImpl.getInstance();
       Set<Class<?>> classes =
           ClassScaner.scanPackageByAnnotation(CommonConstant.BEAN_SCAN_PACKAGE, Controller.class);
       if (classes.isEmpty()) {
@@ -51,24 +56,41 @@ public class DefaultControllerContext implements InitFunction, ControllerContext
           Mapping mapping = method.getAnnotation(Mapping.class);
           if (Objects.nonNull(mapping)) {
             addRoute(controller, mapping);
+            addProxy(aClass, method, controller, mapping);
           }
         }
       }
     }
   }
 
-  private void addRoute(Controller controller, Mapping mapping) {
-    StringBuffer routerBuffer = new StringBuffer(controller.value());
-    if (StrUtil.isNotBlank(mapping.value())) {
-      if (!mapping.value().startsWith(SPACING_FLAG)) {
-        routerBuffer.append(SPACING_FLAG);
-      }
-      routerBuffer.append(mapping.value());
+  /** 增加代理对象信息 */
+  private void addProxy(Class<?> clazz, Method method, Controller controller, Mapping mapping) {
+
+    String url = getURL(controller, mapping);
+
+    try {
+
+      // 构建服务对象开始注入
+      ControllerProxyBean proxyBean = new ControllerProxyBean();
+      proxyBean.setController(controller);
+      proxyBean.setMethod(method);
+      proxyBean.setMethodName(method.getName());
+      proxyBean.setRenderType(mapping.renderType());
+      proxyBean.setRequestMethod(mapping.method());
+      proxyBean.setProxyInstance(clazz.newInstance());
+      controllerProxyContext.addProxy(url, proxyBean);
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.exit(-1);
     }
+  }
+
+  private void addRoute(Controller controller, Mapping mapping) {
+    String url = getURL(controller, mapping);
     HttpMethod method = mapping.method().getHttpMethod();
     RenderType renderType = mapping.renderType();
     // TODO: 继续完成路由注入
-    log.info("注入路由:[{}] {}", method.name(), routerBuffer.toString());
+    log.info("注入路由:[{}] {}", method.name(), url);
   }
 
   public static DefaultControllerContext getInstance() {
@@ -80,5 +102,16 @@ public class DefaultControllerContext implements InitFunction, ControllerContext
       }
     }
     return controllerContext;
+  }
+
+  private String getURL(Controller controller, Mapping mapping) {
+    StringBuffer routerBuffer = new StringBuffer(controller.value());
+    if (StrUtil.isNotBlank(mapping.value())) {
+      if (!mapping.value().startsWith(SPACING_FLAG)) {
+        routerBuffer.append(SPACING_FLAG);
+      }
+      routerBuffer.append(mapping.value());
+    }
+    return routerBuffer.toString();
   }
 }

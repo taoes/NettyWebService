@@ -1,10 +1,12 @@
 package com.seven.web.core.compose.init;
 
 import com.seven.web.core.common.enums.HttpRequestMethod;
-import com.seven.web.core.compose.ControllerProxy;
+import com.seven.web.core.compose.ControllerProxyBean;
 import com.seven.web.core.compose.context.ControllerProxyContext;
 import java.util.HashMap;
 import java.util.Map;
+
+import io.netty.handler.codec.http.HttpMethod;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -17,14 +19,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ControllerProxyContextImpl implements ControllerProxyContext {
 
-  private static Map<String, ControllerProxy> proxyMap;
+  private static Map<String, ControllerProxyBean> proxyMap;
 
   static {
     proxyMap = new HashMap<>();
   }
 
   private ControllerProxyContextImpl() {}
-
 
   private static ControllerProxyContext proxyContextContext;
 
@@ -40,14 +41,17 @@ public class ControllerProxyContextImpl implements ControllerProxyContext {
   }
 
   @Override
-  public void addProxy(String path, ControllerProxy controllerProxy) {
-    proxyMap.putIfAbsent(path,controllerProxy);
+  public void addProxy(String path, ControllerProxyBean controllerProxy) {
+    proxyMap.putIfAbsent(path, controllerProxy);
   }
 
   @Override
-  public ControllerProxy getProxy(HttpRequestMethod method, String uri) {
-
-
-    return null;
+  public ControllerProxyBean getProxy(HttpMethod method, String uri) {
+    ControllerProxyBean proxyBean = proxyMap.getOrDefault(uri, null);
+    if (proxyBean == null) {
+      // TODO: 返回一个404 的Bean执行对象
+      return null;
+    }
+    return proxyBean;
   }
 }

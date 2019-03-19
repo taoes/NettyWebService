@@ -18,9 +18,11 @@ ext {
     logbackVersion = "1.2.3"
     nettyVersion = "4.1.33.Final"
     fastjsonVersion = "1.2.56"
+    cglibVersion = "3.2.10"
 }
 
 dependencies {
+    implementation("cglib:cglib:${cglibVersion}")
     implementation("cn.hutool:hutool-all:${hutoolVersion}")
     implementation("org.projectlombok:lombok:${lombokVersion}")
     implementation("org.slf4j:slf4j-api:${slf4jVersion}")

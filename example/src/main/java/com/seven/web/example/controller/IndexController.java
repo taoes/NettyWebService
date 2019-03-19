@@ -16,12 +16,12 @@ import com.seven.web.core.common.enums.RenderType;
 public class IndexController {
 
   @Mapping(method = HttpRequestMethod.GET, renderType = RenderType.HTML)
-  public String getIndexPage() {
-    return null;
+  public Integer getIndexPage() {
+    return 12134;
   }
 
   @Mapping(value = "/123", method = HttpRequestMethod.GET, renderType = RenderType.JSON)
   public String renderJsonString() {
-    return null;
+    return "人生若只如初见,何事悲风秋画扇";
   }
 }

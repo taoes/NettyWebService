@@ -5,6 +5,7 @@ import com.seven.web.core.annotation.Controller;
 import com.seven.web.core.annotation.Mapping;
 import com.seven.web.core.common.enums.HttpRequestMethod;
 import com.seven.web.core.common.enums.RenderType;
+import com.seven.web.example.to.BeanTo;
 
 /**
  * @author Seven zhoutao825638@vip.qq.com
@@ -15,13 +16,14 @@ import com.seven.web.core.common.enums.RenderType;
 @Controller("/user")
 public class UserController {
 
-  @Mapping(value = "/tao", method = HttpRequestMethod.GET, renderType = RenderType.HTML)
-  public String getIndexPage() {
-    return null;
+  @Mapping(value = "/tao", method = HttpRequestMethod.GET, renderType = RenderType.JSON)
+  public BeanTo getIndexPage() {
+    BeanTo to = new BeanTo("周涛", 32, Boolean.FALSE);
+    return to;
   }
 
-  @Mapping(value = "/tom", method = HttpRequestMethod.POST, renderType = RenderType.JSON)
+  @Mapping(value = "/pi", method = HttpRequestMethod.POST, renderType = RenderType.JSON)
   public String renderJsonString() {
-    return null;
+    return String.valueOf(Math.PI);
   }
 }

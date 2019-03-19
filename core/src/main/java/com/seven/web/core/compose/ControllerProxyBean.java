@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Data
 @Slf4j
-public class ControllerProxy {
+public class ControllerProxyBean {
 
   private RenderType renderType;
 
@@ -24,4 +24,6 @@ public class ControllerProxy {
   private Method method;
 
   private String methodName;
+
+  private Object proxyInstance;
 }
