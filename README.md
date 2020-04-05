@@ -1,3 +1,25 @@
+<div align=center>
+  <img width="320" src="http://www.zhoutao123.com/picture/book_convert/netty_web.png" alt="图片加载失败"/>
+</div>
+
+
+
+<div style="height:20px"></div>
+
+您可以通过以下导航来在 语雀 中访问我的读书笔记，涵盖了技术、服务端开发与基础架构、闲谈杂记等多个项目：
+
+
+《[前端开发杂记](https://www.yuque.com/zhoutao123/front_end)》 
+《[设计模式](https://www.yuque.com/zhoutao123/design_pattern)》
+《[深入理解JVM虚拟机](https://www.yuque.com/zhoutao123/jvm)》
+《[Java 并发编程](https://www.yuque.com/zhoutao123/java_concurrent)》 
+《[Netty入门与实战](https://www.yuque.com/zhoutao123/netty)》
+《[高性能MySQL](https://www.yuque.com/zhoutao123/mysql)》
+
+ [最新文档，请访问语雀文档](https://www.yuque.com/zhoutao123)
+
+---
+
 
 
 
